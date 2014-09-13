@@ -1,14 +1,4 @@
 <div>
-  <% @terms.each do |term| %>
-    <p>
-      <strong>Term:</strong>
-      <%= term.term %>
-    </p>
-
-    <p>
-      <strong>Definition:</strong>
-      <%= term.definition %>
-    </p>
-  <% end %>
+  <%= render "list" %>
 </div>
 

@@ -10,6 +10,19 @@ class TermsController < ApplicationController
     @term = Term.find(params[:id])
   end
 
+  def search
+    query = params[:query]
+    @matches = Term.where("term LIKE ?", query).all.to_a
+    if @matches.length == 0
+      render plain: "No term found for '#{query}'"
+    elsif @matches.length == 1
+      redirect_to @matches[0]
+    else
+      # TODO: not actually possible yet because we don't use wildcards
+      render plain: "multi #{@matches}"
+    end
+  end
+
   def create
     # TODO: handle validation
     # TODO: handle dupe entries
