@@ -1,7 +1,13 @@
 <h1>Welcome to Termite</h1>
+<div><strong>Term</strong>: Termite</div>
+<div><strong>Definition</strong>: A glossary app</div>
+
 <p>
   <form action="<%= terms_path %>/search">
     Search for terms: <input name="query">
     <input type="submit" value="Search">
   </form>
 </p>
+
+<h2>Recently updated terms</h2>
+<%= render partial: "terms/list" %>
