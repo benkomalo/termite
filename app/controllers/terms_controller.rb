@@ -2,6 +2,10 @@ class TermsController < ApplicationController
   def new
   end
 
+  def edit
+    @term = Term.find(params[:id])
+  end
+
   def index
     @terms = Term.all
   end
@@ -23,20 +27,29 @@ class TermsController < ApplicationController
     end
   end
 
+  def update
+    @term = Term.find(params[:id])
+    if @term.update(term_params)
+      redirect_to @term
+    else
+      render 'edit'
+    end
+  end
+
   def create
     # TODO: handle validation
     # TODO: handle dupe entries
-    @article = Term.new(term_params)
+    @term = Term.new(term_params)
 
-    if @article.save
-      redirect_to @article
+    if @term.save
+      redirect_to @term
     else
       redirect_to "#{terms_path}/new?error=1"
     end
   end
 
   private
-  def term_params
-    params.require(:term).permit(:term, :definition)
-  end
+    def term_params
+      params.require(:term).permit(:term, :definition)
+    end
 end
