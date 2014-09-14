@@ -38,7 +38,13 @@ function processTermDefinition(el) {
 }
 
 $(function() {
-  $(".term-root .term-definition").each(function(i, el) {
+  $('.term-root .term-definition').each(function(i, el) {
     processTermDefinition(el);
+  });
+
+  $(document).on('page:load', function() {
+    $('.term-root .term-definition').each(function(i, el) {
+      processTermDefinition(el);
+    });
   });
 });
