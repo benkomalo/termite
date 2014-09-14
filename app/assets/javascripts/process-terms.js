@@ -2,16 +2,38 @@ var NOT_WORD_CHAR = /[^\w]/;
 
 var NEW_LINE = /\n/g;
 
+var DUMB_URL_RE = /(https?:\/\/[^\s]+)/g;
 
-function processNewlines(textContent) {
-  return textContent.replace(NEW_LINE, '<br>');
+function processText(textContent) {
+  var sanitized = slowEscape(textContent);
+
+  DUMB_URL_RE.lastIndex = 0;
+  var results = []
+  var i = 0;
+  var match;
+  while (match = DUMB_URL_RE.exec(sanitized)) {
+    var l = match[0].length;
+    var safeMatch = slowEscape(match[0]);
+    results.push(
+        sanitized.substring(i, DUMB_URL_RE.lastIndex - l),
+        '<a href="' + safeMatch + '">' + safeMatch + '</a>');
+    i = DUMB_URL_RE.lastIndex;
+  }
+  results.push(sanitized.substring(i));
+  return results.join('').replace(NEW_LINE, '<br>');
+}
+
+var $div = $('<div/>');
+
+function slowEscape(s) {
+  return $div.text(s).html();
 }
 
 function processTermDefinition(el) {
   var $el = $(el);
   var contents = $el.text();
   var rawParts = contents.split('#');
-  var results = [processNewlines(rawParts[0])];
+  var results = [processText(rawParts[0])];
 
   for (var i = 1, part; part = rawParts[i]; i++) {
     var otherTerm;
@@ -29,9 +51,9 @@ function processTermDefinition(el) {
 
     results.push(
         '<a class="term-link" href="/terms/search?query=' +
-          encodeURIComponent(otherTerm) + '">' +
-        otherTerm + '</a>',
-        processNewlines(part.substring(end)));
+          slowEscape(encodeURIComponent(otherTerm)) + '">' +
+        slowEscape(otherTerm) + '</a>',
+        processText(part.substring(end)));
   }
 
   $el.html(results.join(''));
