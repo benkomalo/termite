@@ -1,4 +1,14 @@
 <%= form_for :term, url: url, method: method do |f| %>
+  <% if @term and @term.errors.any? %>
+    <div class="errors">
+      <span>Bad news, bub.</span>
+      <ul>
+      <% @term.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
   <p>
     <%= f.label :term %><br>
     <%= f.text_field :term %>

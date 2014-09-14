@@ -37,14 +37,12 @@ class TermsController < ApplicationController
   end
 
   def create
-    # TODO: handle validation
-    # TODO: handle dupe entries
     @term = Term.new(term_params)
 
     if @term.save
       redirect_to @term
     else
-      redirect_to "#{terms_path}/new?error=1"
+      render 'new'
     end
   end
 
