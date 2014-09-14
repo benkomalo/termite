@@ -1,13 +1,11 @@
 <% @terms.each do |term| %>
-  <p>
-      <strong>Term:</strong>
-      <a href="<%= term_path(term) %>">
-        <%= term.term %>
-      </a>
-  </p>
+  <div class="term-root preview">
+    <div class="term-text">
+      <a href="<%= term_path(term) %>"><%= term.term %></a>
+    </div>
 
-  <p>
-    <strong>Definition:</strong>
-    <%= term.definition %>
-  </p>
+    <div class="term-definition">
+      <%= term.definition %>
+    </div>
+  </div>
 <% end %>

@@ -8,6 +8,19 @@
 </head>
 <body>
 
+<nav>
+  <a class="nav-link home" href="/">
+    <%= image_tag "termite.png",
+      width: 60, height: 75,
+      class: "logo",
+      alt: "Home",
+      title: "Cartoon termite logo. From http://freedesignfile.com/67721-funny-cartoon-insects-vector-set-10/. CCA3.0" %>
+    Termite
+  </a>
+
+  <a class="nav-link new" href="<%= new_term_path %>">New term</a>
+</nav>
+
 <%= yield %>
 
 </body>

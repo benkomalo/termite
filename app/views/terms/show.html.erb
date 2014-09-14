@@ -1,12 +1,16 @@
-<p>
-  <strong>Term:</strong>
-  <%= @term.term %>
-</p>
+<div class="term-root">
+  <div class="term-text">
+    <%= @term.term %>
+  </div>
 
-<p>
-  <strong>Definition:</strong>
-  <%= @term.definition %>
-</p>
+  <div class="label">Definition:</div>
+  <div class="term-definition"><%= @term.definition %></div>
 
-
-<a href="<%= edit_term_path(@term) %>">Edit</a>
+  <div class="info">
+    <span class="timestamp">
+      Updated: <%= @term.updated_at.to_formatted_s(:short) %>
+    </span>
+    <span class="separator">|</span>
+    <a class="edit-link"href="<%= edit_term_path(@term) %>">Edit</a>
+  </div>
+</div>

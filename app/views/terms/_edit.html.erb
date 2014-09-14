@@ -1,4 +1,7 @@
-<%= form_for :term, url: url, method: method do |f| %>
+<%= form_for :term,
+    url: url,
+    method: method,
+    html: {class: "term-form"} do |f| %>
   <% if @term and @term.errors.any? %>
     <div class="errors">
       <span>Bad news, bub.</span>
