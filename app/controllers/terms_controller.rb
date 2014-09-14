@@ -16,7 +16,7 @@ class TermsController < ApplicationController
 
   def search
     query = params[:query]
-    @matches = Term.where("term LIKE ?", query).all.to_a
+    @matches = Term.where("LOWER(term) = LOWER(?)", query).all.to_a
     if @matches.length == 0
       render plain: "No term found for '#{query}'"
     elsif @matches.length == 1
